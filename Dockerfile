@@ -9,8 +9,9 @@ RUN ./gradlew bootJar --no-daemon
 
 
 FROM openjdk:17-jdk-slim
-VOLUME /tmp
+
 EXPOSE 8080
-ARG JAR_FILE=build/libs/main-backend-0.0.1-SNAPSHOT.jar
-ADD ${JAR_FILE} app.jar
+
+COPY --from=build /build/libs/main-backend-0.0.1-SNAPSHOT.jar app.jar
+
 ENTRYPOINT ["java","-jar","/app.jar"]
